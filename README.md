@@ -48,8 +48,8 @@ Optionally a filename can be provided as an argument. If this is supplied the
 environment variables will be written to the file, so they can easily be sourced
 without having to type the drush command again:
 
-   $ drush bes behat.local.sh
-   $ source behat.local.sh
+    $ drush bes behat.local.sh
+    $ source behat.local.sh
 
 If no filename is provided the environment variables will be output in the
 terminal.
