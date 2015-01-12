@@ -43,6 +43,8 @@ The following options are available:
 - ``--subcontexts``: a comma-separated list of paths to scan for subcontext
   files. These are the '*.behat.inc' files that provide step definitions for
   contributed module. If omitted this will default to 'sites/all/modules'.
+- ``--skip-path-check``: by default the command will verify if the passed in
+  site root and subcontext paths exist. Specify this option to skip this check.
 
 Optionally a filename can be provided as an argument. If this is supplied the
 environment variables will be written to the file, so they can easily be sourced
