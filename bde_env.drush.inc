@@ -94,7 +94,6 @@ function drush_bde_env_set($filename = '') {
   }
   // No filename was provided, output the parameters on the command line.
   else {
-    drush_print('Use the following command to set the environment variables for Behat:');
     drush_print($output);
   }
 }
