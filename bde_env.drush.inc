@@ -29,6 +29,9 @@ function bde_env_drush_command() {
           'description' => 'A comma-separated list of paths to scan for \'*.behat.inc\' Behat subcontext files. Paths that do not start with a slash will be considered to be relative to the site root. If omitted this will default to \'sites/all/modules\'.',
           'example-value' => 'sites/all/modules,profiles/myprofile/modules',
         ),
+        'skip-path-check' => array(
+          'description' => 'Do not throw errors when the site root or subcontext paths are invalid.'
+        ),
       ),
     ),
   );
@@ -42,6 +45,11 @@ function drush_bde_env_set($filename = '') {
   $site_root = rtrim(drush_get_option('site-root', drush_get_context('DRUSH_DRUPAL_ROOT')), '/');
   $base_url = rtrim(drush_get_option('base-url', drush_get_context('DRUSH_URI')), '/');
   
+  $skip_path_check = drush_get_option('skip-path-check');
+  if (!$skip_path_check && realpath($site_root) === FALSE) {
+    return drush_set_error('BDE_ENV_INVALID_SITE_ROOT', dt('The path to the site root "@path" does not exist.', array('@path' => $site_root)));
+  }
+
   // Default to 'sites/all/modules' for the subcontexts.
   $subcontexts = explode(',', drush_get_option('subcontexts', 'sites/all/modules'));
 
@@ -50,7 +58,12 @@ function drush_bde_env_set($filename = '') {
     if (substr($subcontext, 0, 1) !== '/') {
       $subcontext = $site_root . '/' . $subcontext;
     }
-    $subcontext = realpath($subcontext);
+    if (!$skip_path_check) {
+      if (realpath($subcontext) === FALSE) {
+        return drush_set_error('BDE_ENV_INVALID_SUBCONTEXT_PATH', dt('Subcontext path "@path" does not exist.', array('@path' => $subcontext)));
+      }
+      $subcontext = realpath($subcontext);
+    }
   }
   
   $parameters = array(
