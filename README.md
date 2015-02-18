@@ -33,7 +33,7 @@ the ``.drush`` folder in your home directory, and clear the drush cache:
 
 ## Usage
 
-    $ drush bde-env-set --base-url=http://localhost --site-root=/var/www/myproject --subcontexts=sites/all/modules config.local.sh
+    $ drush bde-env-gen --base-url=http://localhost --site-root=/var/www/myproject --subcontexts=sites/all/modules config.local.sh
 
 The following options are available:
 - ``--base-url``: a fully qualified URL to use as the base URL. If omitted the
@@ -50,7 +50,7 @@ Optionally a filename can be provided as an argument. If this is supplied the
 environment variables will be written to the file, so they can easily be sourced
 without having to type the drush command again:
 
-    $ drush bes behat.local.sh
+    $ drush beg behat.local.sh
     $ source behat.local.sh
 
 If no filename is provided the environment variables will be output in the

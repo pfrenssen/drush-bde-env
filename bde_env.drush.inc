@@ -10,9 +10,9 @@
  */
 function bde_env_drush_command() {
   return array(
-    'bde-env-set' => array(
+    'bde-env-gen' => array(
       'description' => 'Generate environment variables for the Behat Drupal Extension.',
-      'aliases' => array('bes'),
+      'aliases' => array('beg'),
       'arguments' => array(
         'filename' => 'The name of the file where the environment variables will be saved. This can be either an absolute path, or a path relative to the current working directory. If omitted the environment variables will be printed on the command line.',
       ),
@@ -40,7 +40,7 @@ function bde_env_drush_command() {
 /**
  * Drush command to generate environment variables.
  */
-function drush_bde_env_set($filename = '') {
+function drush_bde_env_gen($filename = '') {
   // Default to the site root and base URL from the site context.
   $site_root = rtrim(drush_get_option('site-root', drush_get_context('DRUSH_DRUPAL_ROOT')), '/');
   $base_url = rtrim(drush_get_option('base-url', drush_get_context('DRUSH_URI')), '/');
