@@ -33,6 +33,45 @@ the ``.drush`` folder in your home directory, and clear the drush cache:
 
 ## Usage
 
+### Output export command in the terminal
+
+Output the command to set the Behat environment variables in the terminal using
+default values:
+
+    $ drush bde-env-gen
+    export BEHAT_PARAMS='{"extensions":...}'
+
+You can then copy/paste this line in the terminal to set the variables.
+
+### Override default values
+
+You can override the default values that are automatically detected by drush,
+for example if you do not have your base url configured in settings.php:
+
+    $ drush bde-env-gen --base-url=http://mysite.local
+
+### Save export command to a file
+
+If you are working on multiple projects it can be interesting to save the
+output of the drush command in a file:
+
+    $ drush bde-env-gen --base-url=http://localhost mybehatvars.sh
+
+You can then simply source the file rather than having to type the drush
+command:
+
+    $ source mybehatvars.sh
+
+### Set the environment variables
+
+For security reasons it is not possible to set the environment variables from
+within a script. But we can work around this with the `eval` command. This will
+allow us to set the environment variables directly:
+
+    $ eval $(drush bde-env-gen)
+
+### Options
+
     $ drush bde-env-gen --base-url=http://localhost --site-root=/var/www/myproject --subcontexts=sites/all/modules config.local.sh
 
 The following options are available:
