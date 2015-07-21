@@ -85,7 +85,7 @@ function drush_bde_env_gen($filename = '') {
   $shell = getenv('SHELL');
   $shell_parts = $shell ? explode('/', $shell) : array('default');
   switch (array_pop($shell_parts)) {
-    case '/usr/bin/fish':
+    case 'fish':
       $prefix = 'set -U -x BEHAT_PARAMS ';
       break;
 
