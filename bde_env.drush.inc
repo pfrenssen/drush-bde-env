@@ -66,12 +66,12 @@ function drush_bde_env_gen($filename = '') {
     }
   }
 
-  // Find the drush alias for that site
+  // Find the drush alias for that site.
   drush_sitealias_load_all();
   $alias_name = '';
   foreach (drush_get_context('site-aliases') as $name => $alias_values) {
-    if (!empty($alias_values['uri']) && ($base_url == $alias_values['uri'])) {
-      $alias_name = $name;
+    if (!empty($alias_values['uri']) && $base_url == $alias_values['uri']) {
+      $alias_name = substr($name, 1);
       break;
     }
   }
