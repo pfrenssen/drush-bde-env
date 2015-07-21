@@ -82,7 +82,19 @@ function drush_bde_env_gen($filename = '') {
     ),
   );
 
-  $output = 'export BEHAT_PARAMS=' . escapeshellarg(json_encode($parameters, JSON_UNESCAPED_SLASHES));
+  $shell = getenv('SHELL');
+  $shell_parts = $shell ? explode('/', $shell) : array('default');
+  switch (array_pop($shell_parts)) {
+    case 'fish':
+      $prefix = 'set -U -x BEHAT_PARAMS ';
+      break;
+
+    default:
+      $prefix = 'export BEHAT_PARAMS=';
+      break;
+  }
+
+  $output = $prefix . escapeshellarg(json_encode($parameters, JSON_UNESCAPED_SLASHES));
 
   // If a filename is provided, write the parameters to a file.
   if (!empty($filename)) {
