@@ -66,6 +66,10 @@ function drush_bde_env_gen($filename = '') {
     }
   }
   
+  if (strpos($base_url, '://') === FALSE) {
+    $base_url = 'http://' . $base_url;
+  }
+
   $parameters = array(
     'extensions' => array(
       'Behat\MinkExtension' => array(
