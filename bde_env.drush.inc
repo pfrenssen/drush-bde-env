@@ -65,6 +65,16 @@ function drush_bde_env_gen($filename = '') {
       $subcontext = realpath($subcontext);
     }
   }
+
+  // Find the drush alias for that site.
+  drush_sitealias_load_all();
+  $alias_name = '';
+  foreach (drush_get_context('site-aliases') as $name => $alias_values) {
+    if (!empty($alias_values['uri']) && $base_url == $alias_values['uri']) {
+      $alias_name = substr($name, 1);
+      break;
+    }
+  }
   
   if (strpos($base_url, '://') === FALSE) {
     $base_url = 'http://' . $base_url;
@@ -78,6 +88,9 @@ function drush_bde_env_gen($filename = '') {
       'Drupal\DrupalExtension' => array(
         'drupal' => array(
           'drupal_root' => $site_root,
+        ),
+        'drush' => array(
+          'alias' => $alias_name,
         ),
         'subcontexts' => array(
           'paths' => $subcontexts,
